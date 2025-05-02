@@ -10,6 +10,7 @@ Baixar os arquivos desse projeto na pasta que será utilizada para manter o sist
 ### 2. IDE e extensões (opcional)
 
 Atualmente utilizo a IDE VSCode para o desenvolvimento do projeto. Caso opte pelo mesmo software, recomendo as seguintes extenções:
+
     - ```Dev Containers (publisher: Microsoft)```
     - ```Database Client (publisher: database-client.com)```
 
