@@ -33,25 +33,25 @@ Obs.: No momento, o valor de <nome_projeto> é "ubuntu", mas atente-se a possibi
 
 Dentro do container atualize (caso necessário) os dados do arquivo .env. Os valores que precisão ser verificados são os seguintes:
 
-'''
+```
 DB_CONNECTION=mysql
 DB_HOST=<nome_container_banco>
 DB_PORT=3306
 DB_DATABASE=<nome_banco>
 DB_USERNAME=<nome_usuario>
 DB_PASSWORD=<senha_usuario>
-'''
+```
 
 Obs.: O projeto atualmente utiliza o banco MariaDB, caso seja alterado, será necessário alterar também os dados das variáveis DB_CONNECTION e DB_PORT. Além disso, atualmente os demais valores são:
 
-'''
+```
 DB_CONNECTION=mysql
 DB_HOST=mariadb
 DB_PORT=3306
 DB_DATABASE=financas
 DB_USERNAME=root
 DB_PASSWORD=root
-'''
+```
 
 
 
