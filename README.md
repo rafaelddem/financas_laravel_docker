@@ -54,5 +54,22 @@ DB_PASSWORD=root
 ```
 
 
+### 5. Iniciar sistema
+
+Ainda dentro do container, execute os comandos para iniciar o sistema.
+
+Obs.: Os comandos descritos nesse manual partem do princípio que o prompt será iniciado já na raiz do projeto> Caso não seja esse o cenário, será preciso caminhar até a pasta correta, e somente então executar os comandos
+
+Para prepara o banco:
+- ```php artisan migrate --seed```
+
+Para iniciar o sistema:
+- ```php artisan key:generate```
+- ```php artisan serve --host=0.0.0.0 --port=8000```
+
+Agora pasta acessar o sistema do navegador, utilizando o link
+[localhost:8000](https://localhost:8000)
+
+
 
 
