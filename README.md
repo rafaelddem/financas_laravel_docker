@@ -10,8 +10,8 @@ Baixar os arquivos desse projeto na pasta que será utilizada para manter o sist
 ### 2. IDE e extensões (opcional)
 
 Atualmente utilizo a IDE VSCode para o desenvolvimento do projeto. Caso opte pelo mesmo software, recomendo as seguintes extenções:
-    - Dev Containers (publisher: Microsoft)
-    - Database Client (publisher: database-client.com)
+    - ```Dev Containers (publisher: Microsoft)```
+    - ```Database Client (publisher: database-client.com)```
 
 A primeira extensão permitirá abrir o projeto na IDE diretamente do container, o que facilitará o desenvolvimento, não precisando comitar as alterações cada vez que for testar. A segunda extensão permitirá acessar o banco de dados diretamente do VSCode, sem a necessidade de um terceiro software.
 
