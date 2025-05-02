@@ -67,7 +67,8 @@ Para iniciar o sistema:
 - ```php artisan key:generate```
 - ```php artisan serve --host=0.0.0.0 --port=8000```
 
-Agora pasta acessar o sistema do navegador, utilizando o link
+Agora basta acessar o sistema do navegador, utilizando o link
+
 [localhost:8000](http://localhost:8000)
 
 
