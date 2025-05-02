@@ -1,0 +1,34 @@
+services:
+  mariadb:
+    image: mariadb:11.7
+    container_name: mariadb
+    restart: always
+    environment:
+      MARIADB_USER: root
+      MARIADB_PASSWORD: root
+      MARIADB_ROOT_PASSWORD: root
+      MYSQL_DATABASE: financas
+    volumes:
+      - "./mariadb-data/data:/var/lib/mysql/data/"
+      - "./mariadb-data/logs:/var/lib/mysql/logs/"
+    ports:
+      - 3306:3306
+    networks: 
+      - financas
+
+  ubuntu:
+    image: ubuntu:20.04
+    container_name: ubuntu
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 8000:8000
+    networks: 
+      - financas
+    depends_on:
+      - mariadb
+
+networks:
+  financas:
+    driver: bridge
