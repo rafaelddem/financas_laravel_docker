@@ -27,7 +27,7 @@ Para iniciar o ambiente, execute os seguintes comandos, usando o prompt, no mesm
 ### 4. Preparar sistema
 
 As próximas alterações serão diretamente no container. Para isso, entre no container utilizando o comando:
-    - docker-compose exec -it <nome_projeto> bash
+- ```docker-compose exec -it <nome_projeto> bash```
 
 Obs.: No momento, o valor de <nome_projeto> é "ubuntu", mas atente-se a possibilidade de o valor ser diferente. Caso precise alterar, busque no arquivo "docker-compose.yml" o nome dado ao container correspondente ao sistema.
 
