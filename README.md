@@ -68,7 +68,7 @@ Para iniciar o sistema:
 - ```php artisan serve --host=0.0.0.0 --port=8000```
 
 Agora pasta acessar o sistema do navegador, utilizando o link
-[localhost:8000](https://localhost:8000)
+[localhost:8000](http://localhost:8000)
 
 
 
