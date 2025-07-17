@@ -16,12 +16,13 @@ services:
     networks: 
       - financas
 
-  ubuntu:
-    image: ubuntu:20.04
-    container_name: ubuntu
+  financas_servidor:
     build: 
       context: .
       dockerfile: Dockerfile
+    image: financas_servidor:1.0.0
+    container_name: financas_servidor
+    restart: always
     ports: 
       - 8000:8000
     networks: 
