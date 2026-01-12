@@ -7,7 +7,13 @@ Para executar os containers, e criar o ambiente de desenvolvimento, serão neces
 Baixar os arquivos desse projeto na pasta que será utilizada para manter o sistema
 
 
-### 2. IDE e extensões (opcional)
+### 2. Preparar ambiente
+
+Para testes usando o Nginx, será necessário altere o arquivo hosts. Se for esse o caso, adicione a seguinte linha ao hosts do sistema
+```127.0.0.1      financas```
+
+
+### 3. IDE e extensões (opcional)
 
 Atualmente utilizo a IDE VSCode para o desenvolvimento do projeto. Caso opte pelo mesmo software, recomendo as seguintes extenções:
 - Dev Containers (publisher: Microsoft)
@@ -16,22 +22,18 @@ Atualmente utilizo a IDE VSCode para o desenvolvimento do projeto. Caso opte pel
 A primeira extensão permitirá abrir o projeto na IDE diretamente do container, o que facilitará o desenvolvimento, não precisando comitar as alterações cada vez que for testar. A segunda extensão permitirá acessar o banco de dados diretamente do VSCode, sem a necessidade de um terceiro software.
 
 
-### 3. Comandos
-
-Para iniciar o ambiente, execute os seguintes comandos, usando o prompt, no mesmo diretório onde os arquivos do projeto foram baixados (docker-compose.yml e Dockerfile):
-- ```docker-compose build```
-- ```docker-compose up -d```
-
-
-
 ### 4. Preparar sistema
 
-As próximas alterações serão diretamente no container. Para isso, entre no container utilizando o comando:
-- ```docker-compose exec -it <nome_projeto> bash```
+Para iniciar o sistema, execute o seguinte comando, usando o prompt, no mesmo diretório onde os arquivos do projeto foram baixados:
+- ```docker-compose up -d --build```
 
-Obs.: No momento, o valor de <nome_projeto> é "ubuntu", mas atente-se a possibilidade de o valor ser diferente. Caso precise alterar, busque no arquivo "docker-compose.yml" o nome dado ao container correspondente ao sistema.
+Aqui já é possível testar se o sistema está funcional através do link "http://financas", entretanto o sistema possui ainda somente dados default, não contendo nada além dos dados do próprio sistema.
+Caso seja interessante adicionar alguma seeder, serão necessários os seguintes passos:
+- Entre no container do backend (Laravel) com o comando: ```docker-compose exec -it <nome_container> bash```
+- Adicione o seeder desejado a pasta dos seeders (.\Database\Seeders)
+- Execute o seguinte comando: ```php artisan db:prepare --restore=<nome_do_seeder>```
 
-Dentro do container atualize (caso necessário) os dados do arquivo .env. Os valores que precisão ser verificados são os seguintes:
+O sistema já possui dados de acesso ao banco, mas caso seja necessário atualizar os dados de acesso, altere as seguintes infomações do arquivo .env:
 
 ```
 DB_CONNECTION=mysql
@@ -42,34 +44,27 @@ DB_USERNAME=<nome_usuario>
 DB_PASSWORD=<senha_usuario>
 ```
 
-Obs.: O projeto atualmente utiliza o banco MariaDB, caso seja alterado, será necessário alterar também os dados das variáveis DB_CONNECTION e DB_PORT. Além disso, atualmente os demais valores são:
+Obs.: O projeto atualmente utiliza o banco MariaDB, caso seja alterado, será necessário alterar também os dados das variáveis DB_CONNECTION e DB_PORT.
 
-```
-DB_CONNECTION=mysql
-DB_HOST=mariadb
-DB_PORT=3306
-DB_DATABASE=financas
-DB_USERNAME=root
-DB_PASSWORD=root
-```
+Em caso de alteração de configurações que precise reiniciar o sistema, execute os comandos
+
+- ```docker-compose down```
+
+e
+
+- ```docker-compose up -d --build```
+
+OS COMANDOS A SEGUIR PRECISAO DE REVISAO: 
+Para reinciar o sistema, sem reinciar o container teste: ```pkill -f "php artisan serve"``` e ```php artisan serve --host=0.0.0.0 --port=8000```
 
 
-### 5. Iniciar sistema
+### 5. Acessar sistema
 
-Ainda dentro do container, execute os comandos para iniciar o sistema.
+Como comentado no item anterior, o sismtema já está disponível, basta usar um dos seguintes links:
 
-Obs.: Os comandos descritos nesse manual partem do princípio que o prompt será iniciado já na raiz do projeto> Caso não seja esse o cenário, será preciso caminhar até a pasta correta, e somente então executar os comandos
+[Acesso direto com Laravel](http://localhost:8000)
 
-Para prepara o banco:
-- ```php artisan migrate --seed```
-
-Para iniciar o sistema:
-- ```php artisan key:generate```
-- ```php artisan serve --host=0.0.0.0 --port=8000```
-
-Agora basta acessar o sistema do navegador, utilizando o link
-
-[localhost:8000](http://localhost:8000)
+[Acesso passando pelo Nginx](http://financas:80)
 
 
 
