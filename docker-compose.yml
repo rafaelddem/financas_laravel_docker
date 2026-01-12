@@ -1,7 +1,7 @@
 services:
-  mariadb:
+  financas_database:
     image: mariadb:11.7
-    container_name: mariadb
+    container_name: financas_database
     restart: always
     environment:
       MARIADB_USER: root
@@ -16,19 +16,36 @@ services:
     networks: 
       - financas
 
-  financas_servidor:
+  financas_backend:
     build: 
-      context: .
+      context: ./dockerfiles/app
       dockerfile: Dockerfile
-    image: financas_servidor:1.0.0
-    container_name: financas_servidor
+    image: financas_backend:1.0.0
+    container_name: financas_backend
     restart: always
     ports: 
       - 8000:8000
     networks: 
       - financas
     depends_on:
-      - mariadb
+      - financas_database
+
+  financas_server:
+    build: 
+      context: ./dockerfiles/nginx
+      dockerfile: Dockerfile
+    container_name: financas_server
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # - ./html:/usr/share/nginx/html
+      # - ./nginx/financas.conf:/etc/nginx/conf.d/financas.conf
+      - ./nginx/financas.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - financas
+    depends_on:
+      - financas_backend
 
 networks:
   financas:
