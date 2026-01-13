@@ -27,7 +27,7 @@ A primeira extensão permitirá abrir o projeto na IDE diretamente do container,
 Para iniciar o sistema, execute o seguinte comando, usando o prompt, no mesmo diretório onde os arquivos do projeto foram baixados:
 - ```docker-compose up -d --build```
 
-Aqui já é possível testar se o sistema está funcional através do link "http://financas", entretanto o sistema possui ainda somente dados default, não contendo nada além dos dados do próprio sistema.
+Aqui já é possível testar se o sistema está funcional através do link "http://financas", entretanto o sistema possui somente dados default, não contendo nada além dos dados do próprio sistema.
 Caso seja interessante adicionar alguma seeder, serão necessários os seguintes passos:
 - Entre no container do backend (Laravel) com o comando: ```docker-compose exec -it <nome_container> bash```
 - Adicione o seeder desejado a pasta dos seeders (.\Database\Seeders)
@@ -47,12 +47,13 @@ DB_PASSWORD=<senha_usuario>
 Obs.: O projeto atualmente utiliza o banco MariaDB, caso seja alterado, será necessário alterar também os dados das variáveis DB_CONNECTION e DB_PORT.
 
 Em caso de alteração de configurações que precise reiniciar o sistema, execute os comandos
-
 - ```docker-compose down```
-
-e
-
 - ```docker-compose up -d --build```
+
+Obs.: Dependendo das alterações aplicadas ao projeto (Financas_laravel), pode ser necessário rodar o build sem nenhum cache. Nesse caso, rode os comandos: 
+- ```docker-compose down```
+- ```docker-compose up build --no-cache```
+- ```docker-compose up -d```
 
 OS COMANDOS A SEGUIR PRECISAO DE REVISAO: 
 Para reinciar o sistema, sem reinciar o container teste: ```pkill -f "php artisan serve"``` e ```php artisan serve --host=0.0.0.0 --port=8000```
@@ -65,7 +66,3 @@ Como comentado no item anterior, o sismtema já está disponível, basta usar um
 [Acesso direto com Laravel](http://localhost:8000)
 
 [Acesso passando pelo Nginx](http://financas:80)
-
-
-
-

@@ -32,13 +32,6 @@ RUN composer update
 
 RUN cp .env.example .env
 
-# RUN php artisan db:prepare --log
-
 RUN php artisan key:generate
 
-# CMD ["php", "artisan", "db:prepare"]
-
-# RUN php artisan serve --host=0.0.0.0 --port=$PORT
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
-
-# ENTRYPOINT sleep infinity
