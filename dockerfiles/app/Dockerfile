@@ -1,37 +1,31 @@
-FROM ubuntu
-
-# ARG PORT=8000
-# EXPOSE $PORT
+FROM php:8.3-fpm
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get upgrade -y 
-RUN apt-get install -y git 
-RUN apt-get install -y php8.3 
-RUN apt-get install -y php8.3-xml
-RUN apt-get install -y php8.3-mysql
-RUN apt-get install -y composer 
-RUN apt-get install -y mysql-client
+RUN apt-get update && apt-get install -y \ 
+    git unzip mariadb-client \ 
+    libpng-dev libonig-dev libxml2-dev \ 
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \ 
+    && rm -rf /var/lib/apt/lists/*
 
-RUN git config --global user.name "Rafael"
-RUN git config --global user.email "rafaelddem@gmail.com"
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-RUN mkdir -p /var/git/
+RUN git config --global user.name "Rafael" \
+    && git config --global user.email "rafaelddem@gmail.com"
 
-WORKDIR /var/git/
+RUN git clone -b main https://github.com/rafaelddem/Financas_laravel.git /var/www/html
 
-RUN git clone https://github.com/rafaelddem/Financas_laravel.git
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-WORKDIR /var/git/Financas_laravel/
+WORKDIR /var/www/html
 
-RUN git checkout main
+RUN composer update --no-dev --optimize-autoloader
+# RUN composer install --no-dev --optimize-autoloader
 
-RUN git pull
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
-RUN composer update
+RUN cp .env.example .env && php artisan key:generate
 
-RUN cp .env.example .env
-
-RUN php artisan key:generate
-
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php-fpm"]

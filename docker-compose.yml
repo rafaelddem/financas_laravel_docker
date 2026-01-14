@@ -9,8 +9,7 @@ services:
       MARIADB_ROOT_PASSWORD: root
       MYSQL_DATABASE: financas
     volumes:
-      - "./mariadb-data/data:/var/lib/mysql/data/"
-      - "./mariadb-data/logs:/var/lib/mysql/logs/"
+      - "./mariadb-data:/var/lib/mysql"
     ports:
       - 3306:3306
     networks: 
@@ -23,8 +22,10 @@ services:
     image: financas_backend:1.0.0
     container_name: financas_backend
     restart: always
+    volumes:
+      - laravel_app:/var/www/html
     ports: 
-      - 8000:8000
+      - 9000:9000
     networks: 
       - financas
     depends_on:
@@ -41,10 +42,14 @@ services:
     volumes:
       - ./nginx/financas.conf:/etc/nginx/conf.d/financas.conf
       - ./nginx/logs:/var/log/nginx
+      - laravel_app:/var/www/html
     networks:
       - financas
     depends_on:
       - financas_backend
+
+volumes:
+  laravel_app:
 
 networks:
   financas:
