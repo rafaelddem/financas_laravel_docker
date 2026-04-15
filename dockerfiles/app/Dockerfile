@@ -3,7 +3,7 @@ FROM php:8.3-fpm
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \ 
-    git unzip mariadb-client \ 
+    git zip unzip mariadb-client \ 
     libpng-dev libonig-dev libxml2-dev \ 
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \ 
     && rm -rf /var/lib/apt/lists/*
@@ -14,6 +14,8 @@ RUN git config --global user.name "Rafael" \
     && git config --global user.email "rafaelddem@gmail.com"
 
 RUN git clone -b main https://github.com/rafaelddem/Financas_laravel.git /var/www/html
+
+RUN mkdir /var/www/html/storage/backups
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
