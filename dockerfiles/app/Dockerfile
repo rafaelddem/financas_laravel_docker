@@ -15,7 +15,7 @@ RUN git config --global user.name "Rafael" \
 
 RUN git clone -b main https://github.com/rafaelddem/Financas_laravel.git /var/www/html
 
-RUN mkdir /var/www/html/storage/backups
+RUN mkdir /var/www/html/storage/app/backups
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
