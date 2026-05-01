@@ -43,6 +43,8 @@ services:
       - ./nginx/financas.conf:/etc/nginx/conf.d/financas.conf
       - ./nginx/logs:/var/log/nginx
       - laravel_app:/var/www/html
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
     networks:
       - financas
     depends_on:
