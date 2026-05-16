@@ -36,6 +36,7 @@ services:
       context: ./dockerfiles/nginx
       dockerfile: Dockerfile
     container_name: financas_server
+    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -43,10 +44,26 @@ services:
       - ./nginx/financas.conf:/etc/nginx/conf.d/financas.conf
       - ./nginx/logs:/var/log/nginx
       - laravel_app:/var/www/html
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - ./nginx/entrypoint.sh:/entrypoint.sh
+    entrypoint: "/bin/sh /entrypoint.sh"
     networks:
       - financas
     depends_on:
       - financas_backend
+
+  financas_certbot:
+    image: certbot/certbot
+    container_name: financas_certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - financas
+    depends_on:
+      - financas_server
 
 volumes:
   laravel_app:
