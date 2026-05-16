@@ -66,3 +66,26 @@ Como comentado no item anterior, o sismtema já está disponível, basta usar um
 [Acesso direto com Laravel](http://localhost:8000)
 
 [Acesso passando pelo Nginx](http://financas:80)
+
+
+
+
+
+***** Corrigir a partir daqui
+
+
+Apos adição do SSL ao sistema, precisará de mais alguns passos. Melhorar a descrição no futuro:
+
+1) iniciar os containers
+
+2) Gerar o certificado:
+docker run --rm \
+  -v "$(pwd)/certbot/conf:/etc/letsencrypt" \
+  -v "$(pwd)/certbot/www:/var/www/certbot" \
+  certbot/certbot certonly --webroot --webroot-path=/var/www/certbot \
+  -d meu_dominio.com.br -d www.meu_dominio.com.br \
+  --email meu_email@gmail.com --agree-tos --no-eff-email
+
+3) Reiniciar o container:
+docker compose restart financas_server
+
