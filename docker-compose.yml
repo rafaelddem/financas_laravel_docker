@@ -48,6 +48,8 @@ services:
       - ./certbot/www:/var/www/certbot
       - ./nginx/entrypoint.sh:/entrypoint.sh
     entrypoint: "/bin/sh /entrypoint.sh"
+    environment:
+      - ENVIRONMENT=prod
     networks:
       - financas
     depends_on:

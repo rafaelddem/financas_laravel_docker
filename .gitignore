@@ -1,2 +1,11 @@
-mariadb-data
-nginx/logs
+.env
+
+mariadb-data/
+
+nginx/logs/*
+!nginx/logs/.gitkeep
+
+certbot/conf/
+certbot/www/
+
+docker-compose.override.yml
