@@ -22,6 +22,8 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 WORKDIR /var/www/html
 
+RUN git config --global --add safe.directory /var/www/html
+
 RUN composer update --no-dev --optimize-autoloader
 # RUN composer install --no-dev --optimize-autoloader
 
